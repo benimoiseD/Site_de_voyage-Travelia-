@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Description" content="Découvrez qui nous sommes, notre mission et notre équipe.">
+    <title>SAFARI-RDC+ | Destination</title>
+    <link rel="stylesheet" href="destination.css">
+    <link rel="stylesheet" href="ind.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <span class="logo"><img src="LOGO/Logo.png" alt="Logo SAFARI-RDC+"></span>
+            <button class="nav-toggle" aria-controls="main-nav" aria-expanded="false" type="button">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <ul class="list" id="main-nav">
+                <li><a href="ind.html">Accueil</a></li>
+                <li><a href="destination.html">Destination</a></li>
+                <li><a href="a pros pos.html">À propos</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li id="accountItem"><a href="user.html">Mon compte</a></li>
+            </ul>
+            <div class="nav-actions">
+                <form id="searchForm">
+                    <input type="search" id="searchInput" placeholder="Rechercher une destination...">
+                </form>
+                <a href="#" class="liens" id="reservationBtn">Réservation</a>
+                <div id="reservationList" class="reservation-list" style="display:none;"></div>
+            </div>
+        </nav>
+    </header>
+<!-- Contrôles de filtrage / tri -->
+<section class="destinations">
+    <h1>Destinations</h1>
+
+    <div id="destinations-list-all" class="destinations-list">
+        <!-- Cartes de destinations (toutes centralisées pour filtrage / tri) -->
+        <div class="destination-card" data-country="RDC" data-region="local">
+            <img src="B.jpg" alt="Parc National des Virunga">
+            <h2>Parc National des Virunga</h2>
+            <p>Découvrez la faune sauvage, les volcans majestueux et les paysages uniques du plus ancien parc d'Afrique.</p>
+            <div class="card-actions">
+                <button class="btn reserve" data-destination="Parc National des Virunga" data-description="Découvrez la faune sauvage, les volcans majestueux et les paysages uniques du plus ancien parc d'Afrique.">Réserver</button>
+                
+            </div>
+        </div>
+
+        <div class="destination-card" data-country="RDC" data-region="local">
+            <img src="D.jpg" alt="Chutes du Congo">
+            <h2>Chutes du Congo</h2>
+            <p>Admirez la puissance et la beauté des célèbres chutes, un site naturel impressionnant au cœur de la RDC.</p>
+            <div class="card-actions">
+                <button class="btn reserve" data-destination="Chutes du Congo" data-description="Admirez la puissance et la beauté des célèbres chutes, un site naturel impressionnant au cœur de la RDC.">Réserver</button>
+
+            </div>
+        </div>
+
+        <div class="destination-card" data-country="RDC" data-region="local">
+            <img src="C.jpg" alt="Lac Kivu">
+            <h2>Lac Kivu</h2>
+            <p>Profitez d’un séjour détente au bord du lac, entre plages, activités nautiques et villages pittoresques.</p>
+            <div class="card-actions">
+                <button class="btn reserve" data-destination="Lac Kivu" data-description="Profitez d'un séjour détente au bord du lac, entre plages, activités nautiques et villages pittoresques.">Réserver</button>
+                
+            </div>
+        </div>
+
+        <!-- Destinations des pays voisins -->
+        <div class="destination-card" data-country="Tanzanie" data-region="voisin">
+            <img src="voyage/1.jpg" alt="Parc national du Serengeti, Tanzanie">
+            <h2>Parc national du Serengeti</h2>
+            <p>Tanzanie : Célèbre pour ses vastes plaines et la grande migration des gnous, une expérience safari inoubliable.</p>
+            <div class="card-actions">
+                <button class="btn reserve" data-destination="Parc national du Serengeti" data-description="Tanzanie : Célèbre pour ses vastes plaines et la grande migration des gnous.">Réserver</button>
+                
+            </div>
+        </div>
+
+        <div class="destination-card" data-country="Rwanda" data-region="voisin">
+            <img src="voyage/2.jpg" alt="Parc des Volcans, Rwanda">
+            <h2>Parc des Volcans</h2>
+            <p>Rwanda : Partez à la rencontre des gorilles de montagne dans un décor volcanique exceptionnel.</p>
+            <div class="card-actions">
+                <button class="btn reserve" data-destination="Parc des Volcans" data-description="Rwanda : Partez à la rencontre des gorilles de montagne.">Réserver</button>
+
+            </div>
+        </div>
+
+        <div class="destination-card" data-country="Zambie/Zimbabwe" data-region="voisin">
+            <img src="voyage/3.jpg" alt="Chutes Victoria, Zambie/Zimbabwe">
+            <h2>Chutes Victoria</h2>
+            <p>Zambie/Zimbabwe : L'une des plus grandes et spectaculaires chutes d'eau du monde.</p>
+            <div class="card-actions">
+                <button class="btn reserve" data-destination="Chutes Victoria" data-description="Zambie/Zimbabwe : L'une des plus grandes chutes d'eau.">Réserver</button>
+                
+            </div>
+        </div>
+
+        <div class="destination-card" data-country="Angola" data-region="voisin">
+            <img src="voyage/4.jpg" alt="Parc national de kissama">
+            <h2>Parc national de Kissama</h2>
+            <p>Angola : idéal pour observer des éléphants, girafes et antilopes dans leur habitat naturel.</p>
+            <div class="card-actions">
+                <button class="btn reserve" data-destination="Parc national de Kissama" data-description="Angola : idéal pour observer des éléphants et girafes.">Réserver</button>
+                
+            </div>
+        </div>
+
+        <div class="destination-card" data-country="Burundi" data-region="voisin">
+            <img src="voyage/5.jpg" alt="Chutes de la Karera">
+            <h2>Chutes de la Karera</h2>
+            <p>Burundi : cascades spectaculaires classées patrimoine naturel.</p>
+            <div class="card-actions">
+                <button class="btn reserve" data-destination="Chutes de la Karera" data-description="Burundi : cascades spectaculaires." >Réserver</button>
+
+            </div>
+        </div>
+
+        <div class="destination-card" data-country="Ouganda" data-region="voisin">
+            <img src="voyage/6.jpg" alt="Lac Bunyonyi">
+            <h2>Lac Bunyonyi</h2>
+            <p>Ouganda : idéal pour le repos, les balades et la randonnée.</p>
+            <div class="card-actions">
+                <button class="btn reserve" data-destination="Lac Bunyonyi" data-description="Ouganda : idéal pour le repos et les balades.">Réserver</button>
+               
+            </div>
+        </div>
+
+        <div class="destination-card" data-country="Soudan du Sud" data-region="voisin">
+            <img src="voyage/7.jpg" alt="Le Nil Blanc">
+            <h2>Le Nil Blanc</h2>
+            <p>Soudan du Sud : idéal pour des balades en pirogue ou simplement admirer le paysage.</p>
+            <div class="card-actions">
+                <button class="btn reserve" data-destination="Le Nil Blanc" data-description="Soudan du Sud : idéal pour des balades en pirogue.">Réserver</button>
+                
+            </div>
+        </div>
+
+        <div class="destination-card" data-country="RCA" data-region="voisin">
+            <img src="voyage/8.jpg" alt="Chutes de Boali">
+            <h2>Chutes de Boali</h2>
+            <p>République centrafricaine : un beau cadre pour pique-niquer ou se reposer dans la nature.</p>
+            <div class="card-actions">
+                <button class="btn reserve" data-destination="Chutes de Boali" data-description="République centrafricaine : un beau cadre pour se reposer.">Réserver</button>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div id="modal-detail" class="modal-detail" style="display:none;"></div>
+<script>    
+const destinations = [
+    {
+        titre: "Parc National des Virunga",
+        description: "Vivez une aventure unique au cœur du plus ancien parc d'Afrique, entre volcans, gorilles et paysages à couper le souffle.",
+        prix: { solo: "250$", couple: "400$", famille: "700$" }
+    },
+    {
+        titre: "Chutes du Congo",
+        description: "Admirez la puissance des chutes du Congo et profitez d'un séjour nature inoubliable.",
+        prix: { solo: "180$", couple: "320$", famille: "600$" }
+    },
+    {
+        titre: "Lac Kivu",
+        description: "Détendez-vous sur les rives du lac Kivu, activités nautiques et villages typiques au programme.",
+        prix: { solo: "200$", couple: "350$", famille: "650$" }
+    },
+    {
+        titre: "Parc national du Serengeti, Tanzanie",
+        description: "Observez nos different peuples animals que detient notre environement.",
+        prix: { solo:"200$", couple:"350$", famille:"650$"}   
+    },
+        {
+        titre: "Parc des Volcans, Rwanda",
+        description: "Observez nos different peuples animals que detient notre environement.",
+        prix: { solo:"200$", couple:"350$", famille:"650$"}   
+    },
+        {
+        titre: "Chutes Victoria, Zambie/Zimbabwe",
+        description: "Observez nos different peuples animals que detient notre environement.",
+        prix: { solo:"200$", couple:"350$", famille:"650$"}   
+    },
+        {
+        titre: "Parc national de kissama",
+        description: "Observez nos different peuples animals que detient notre environement.",
+        prix: { solo:"200$", couple:"350$", famille:"650$"}   
+    },
+            {
+        titre:"chutes de la karera",
+        description: "Observez nos different peuples animals que detient notre environement.",
+        prix: { solo:"200$", couple:"350$", famille:"650$"}   
+    },
+            {
+        titre: "lac bunyonyi",
+        description: "Observez nos different peuples animals que detient notre environement.",
+        prix: { solo:"200$", couple:"350$", famille:"650$"}   
+    },
+    {
+        titre: "le nil blanc",
+        description: "Observez nos different peuples animals que detient notre environement.",
+        prix: { solo:"200$", couple:"350$", famille:"650$"}   
+    },
+    {
+        titre: "le nil blanc",
+        description: "Observez nos different peuples animals que detient notre environement.",
+        prix: { solo:"200$", couple:"350$", famille:"650$"}   
+    }
+    // Tu peux ajouter d'autres destinations ici
+];
+
+let reservations = JSON.parse(localStorage.getItem('reservations') || '[]');
+
+// Ouvre la modale de réservation depuis les boutons "Réserver"
+function openReservationModal(title, description) {
+    const dest = destinations.find(d => d.titre === title) || { titre: title, description: description, prix: { solo: 'Sur demande', couple: 'Sur demande', famille: 'Sur demande' } };
+    document.getElementById('modal-detail').innerHTML = `
+        <div class="modal-content">
+            <span class="close-modal" style="float:right;cursor:pointer;font-size:1.5em;">&times;</span>
+            <h2>${dest.titre}</h2>
+            <p>${dest.description}</p>
+            <h3>Tarifs :</h3>
+            <ul>
+                <li>Solo : <strong>${dest.prix.solo}</strong></li>
+                <li>Couple : <strong>${dest.prix.couple}</strong></li>
+                <li>Famille : <strong>${dest.prix.famille}</strong></li>
+            </ul>
+            <form id="resaForm">
+                <label>Type de séjour :
+                    <select id="typeSejour" required>
+                        <option value="">Choisir</option>
+                        <option value="solo">Solo</option>
+                        <option value="couple">Couple</option>
+                        <option value="famille">Famille</option>
+                    </select>
+                </label>
+                <input type="text" id="nomResa" placeholder="Votre nom" required>
+                <input type="email" id="emailResa" placeholder="Votre email" required>
+                <button type="submit">Réserver</button>
+            </form>
+            <div id="resaMessage"></div>
+        </div>
+    `;
+    document.getElementById('modal-detail').style.display = 'block';
+
+    document.querySelector('.close-modal').onclick = () => {
+        document.getElementById('modal-detail').style.display = 'none';
+    };
+
+    document.getElementById('resaForm').onsubmit = function(event) {
+        event.preventDefault();
+        const type = document.getElementById('typeSejour').value;
+        const nom = document.getElementById('nomResa').value.trim();
+        const email = document.getElementById('emailResa').value.trim();
+        const msg = document.getElementById('resaMessage');
+        if(!type || nom.length < 2 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+            msg.textContent = 'Veuillez remplir correctement tous les champs.';
+            msg.style.color = 'red';
+            return;
+        }
+        const reservation = { titre: dest.titre, type, nom, email, date: new Date().toLocaleString() };
+        reservations.push(reservation);
+        localStorage.setItem('reservations', JSON.stringify(reservations));
+        msg.textContent = 'Réservation effectuée. Merci !';
+        msg.style.color = 'green';
+        updateReservationList();
+        setTimeout(() => document.getElementById('modal-detail').style.display = 'none', 900);
+    };
+}
+
+// Attacher événements aux boutons "Réserver"
+document.addEventListener('click', function(e) {
+    if (e.target && e.target.classList.contains('reserve')) {
+        e.preventDefault();
+        const title = e.target.dataset.destination || e.target.closest('.destination-card').querySelector('h2').textContent;
+        const desc = e.target.dataset.description || e.target.closest('.destination-card').querySelector('p').textContent;
+        openReservationModal(title, desc);
+    }
+});
+
+function updateReservationList() {
+    const listDiv = document.getElementById('reservationList');
+    reservations = JSON.parse(localStorage.getItem('reservations') || '[]');
+    if (!listDiv) return;
+    if (reservations.length === 0) {
+        listDiv.innerHTML = `<h4>Vos réservations</h4><div class="no-res">Aucune réservation pour l’instant.</div>`;
+    } else {
+        listDiv.innerHTML = `<h4>Vos réservations</h4><ul>` +
+            reservations.map(r => `<li><strong>${r.titre}</strong> (${r.type}) — ${r.nom} — ${new Date(r.date).toLocaleString()}</li>`).join('') + `</ul>`;
+    }
+}
+
+// Nav toggle (hamburger)
+const navToggle = document.querySelector('.nav-toggle');
+const mainNav = document.getElementById('main-nav');
+if (navToggle && mainNav) {
+    navToggle.addEventListener('click', () => {
+        const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+        navToggle.setAttribute('aria-expanded', String(!expanded));
+        mainNav.classList.toggle('open');
+    });
+}
+
+document.getElementById('reservationBtn').onclick = function(e) {
+    e.preventDefault();
+    const listDiv = document.getElementById('reservationList');
+    if (listDiv.style.display === 'none' || listDiv.style.display === '') {
+        updateReservationList();
+        listDiv.style.display = 'block';
+    } else {
+        listDiv.style.display = 'none';
+    }
+};
+
+// Gestion de l'ajout aux voyages utilisateur (historique)
+function attachAddToTravels() {
+    const addButtons = document.querySelectorAll('.add-to-travels');
+    addButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+            const signedUp = localStorage.getItem('signedUp') === '1';
+            if (!signedUp) {
+                alert('Veuillez vous inscrire pour ajouter des voyages à votre historique.');
+                location.href = 'index.html';
+                return;
+            }
+            const destinationName = button.getAttribute('data-destination');
+            const description = button.getAttribute('data-description');
+            const date = new Date().toLocaleDateString('fr-FR');
+            let travelHistory = JSON.parse(localStorage.getItem('travelHistory') || '[]');
+            const newTravel = { name: destinationName, description, date };
+            const exists = travelHistory.some(t => t.name === destinationName);
+            if (!exists) {
+                travelHistory.push(newTravel);
+                localStorage.setItem('travelHistory', JSON.stringify(travelHistory));
+                alert(destinationName + ' a été ajouté à votre historique de voyages!');
+                button.textContent = 'Ajouté ✓';
+                button.disabled = true;
+                button.style.opacity = '0.6';
+            } else {
+                alert('Ce voyage est déjà dans votre historique.');
+            }
+        });
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    attachAddToTravels();
+    updateReservationList();
+    // Filtrage et tri
+    const filterCountry = document.getElementById('filterCountry');
+    const sortBy = document.getElementById('sortBy');
+    function applyFilterSort() {
+        const cards = Array.from(document.querySelectorAll('.destination-card'));
+        const country = filterCountry.value;
+        let filtered = cards.filter(card => !country || card.dataset.country === country);
+        const sort = sortBy.value;
+        if (sort === 'name-asc') filtered.sort((a,b) => a.querySelector('h2').textContent.localeCompare(b.querySelector('h2').textContent, 'fr'));
+        if (sort === 'name-desc') filtered.sort((a,b) => b.querySelector('h2').textContent.localeCompare(a.querySelector('h2').textContent, 'fr'));
+        const container = document.getElementById('destinations-list-all');
+        filtered.forEach(card => container.appendChild(card));
+    }
+    filterCountry.addEventListener('change', applyFilterSort);
+    sortBy.addEventListener('change', applyFilterSort);
+});
+</script>
+    
+    <!-- Section Contact -->
+    <footer id="contact">
+        <h2>Contactez-nous</h2>
+        <p>Email : support@voyage.com</p>
+        <p>Téléphone : (+243) 821474532</p>
+        <p>&copy; 2025 Site de voyage. Tous droits réservés.</p>
+    </footer>
+
+</body>
+</html>

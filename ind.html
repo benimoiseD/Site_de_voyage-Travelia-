@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Description" content="Découvrez des voyages authentiques et des offres spéciales pour explorer l'Afrique centrale et au-delà.">
+    <title>SAFARI-RDC+/TRAVELIA | Accueil</title>
+    <link rel="stylesheet" href="ind.css">
+    <script>
+        // Guard: redirige vers la landing si l'utilisateur n'est pas inscrit
+        try {
+            const signed = localStorage.getItem('signedUp');
+            const onIndex = location.pathname.endsWith('index.html') || location.pathname === '/' || location.pathname.indexOf('index') !== -1;
+            if (!signed && !onIndex) {
+                location.replace('index.html');
+            }
+        } catch (e) { /* localStorage potentiellement restreint */ }
+    </script>
+    <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
+    <link href="https://unpkg.com/leaflet/dist/leaflet.css" rel="stylesheet"/>
+</head>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<body>
+    <header>
+        <nav>
+            <span class="logo"><img src="LOGO/Logo.png" alt="Logo SAFARI-RDC+"></span>
+            <button class="nav-toggle" aria-controls="main-nav" aria-expanded="false" type="button">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <ul class="list" id="main-nav">
+                <li><a href="ind.html" >Accueil</a></li>
+                <li><a href="destination.html">Destinations</a></li>
+                <li><a href="a pros pos.html">À propos</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li id="accountItem"><a href="user.html" >Mon compte</a></li>
+
+            </ul>
+            <div class="nav-actions">
+                <form id="searchForm">
+                    <input type="search" id="searchInput" placeholder="Rechercher une destination...">
+                </form>
+                <button id="filtersToggle" class="liens" type="button">Filtres</button>
+            </div>
+        </nav>
+    </header>
+
+    <section class="pt-principal">
+        <h2>Bienvenue à TRAVELIA</h2>
+        <h3>Découvrez des endroits magnifiques à la limite de nos frontières.</h3>
+        <a class="btn-discover" href="destination.html">Découvrir nos Sites</a>
+    </section>
+
+    <section class="pt-principal2">
+        <h1>Nos Offres de Voyage</h1>
+        <div class="generale">
+            <article class="img">
+                <h1>Voyage en Solo</h1>
+                <img src="IMG/3.jpg" alt="Voyageur explorant seul un paysage naturel">
+                <p>
+                    Partez à la découverte des perles en dehors de la RDC : volcans majestueux, forêts tropicales et lacs paisibles. Ce voyage vous offre liberté, sécurité et immersion totale dans les cultures locales.
+                </p>
+            </article>
+            <article class="img">
+                <h1>Voyage en Couple</h1>
+                <img src="IMG/1.jpg" alt="Couple profitant d'une escapade romantique">
+                <p>
+                    Vivez une escapade unique en dehors de la RDC : savanes sauvages, beauté tropicale, rugissement des chutes, plages et lacs paisibles pour passer du temps en couple. Ainsi passe des moments inoubliables.
+                </p>
+            </article>
+            <article class="img">
+                <h1>Voyage en Famille</h1>
+                <img src="IMG/2.webp" alt="Famille profitant d'un voyage ensemble">
+                <p>
+                    Découvrez une expérience sûre et enrichissante en famille, adaptée à tous les âges, en dehors de la RDC. Pour des souvenirs à se remémorer en famille, riches et pleins d'émotions.
+                </p>
+            </article>
+        </div>
+    </section>
+
+    <section class="map-section">
+        <aside class="filters" id="filters" aria-hidden="true">
+            <h3>Filtres</h3>
+
+            <label>Region
+                <select id="regionFilter">
+                    <option value="any">Tous</option>
+                    <option value="east">Afrique de l'Est</option>
+                    <option value="central">Afrique Centrale</option>
+                    <option value="south">Afrique Australe</option>
+                    <option value="west">Afrique de l'Ouest</option>
+                </select>
+            </label>
+
+            <label>Par Pays
+                <select id="countryFilter">
+                    <option value="any">Tous</option>
+                    <option value="rwanda">Rwanda</option>
+                    <option value="burundi">Burundi</option>
+                    <option value="uganda">Ouganda</option>
+                    <option value="tanzania">Tanzanie</option>
+                    <option value="zambia">Zambie</option>
+                    <option value="angola">Angola</option>
+                    <option value="cameroon">Cameroun</option>
+                    <option value="congo">Congo</option>
+                    <option value="gabon">Gabon</option>
+                    <option value="equatorial">République democratique du Congo</option>
+                </select>
+            </label>
+
+            <label>Coût du voyage
+                <select id="priceFilter">
+                    <option value="any">Tous</option>
+                    <option value="low">Coût Faible</option>
+                    <option value="mid">Coût Moyen</option>
+                    <option value="high">Coût Élevé</option>
+                </select>
+            </label>
+            <label>Durée de sejour
+                <select id="durationFilter">
+                    <option value="any">Toutes</option>
+                    <option value="short">1-3 jours</option>
+                    <option value="medium">4-7 jours</option>
+                    <option value="long">+7 jours</option>
+                </select>
+            </label>
+            <label>Categorie de voyage
+                <select id="typeFilter">
+                    <option value="any">Tous</option>
+                    <option value="adventure">Aventure</option>
+                    <option value="relax">Détente</option>
+                    <option value="culture">Culture</option>
+                </select>
+            </label>
+            <div class="filters-actions">
+                <button id="resetFilters" type="button" class="btn-reset">Réinitialiser les filtres</button>
+            </div>
+            <div class="destination-list" id="destinationList" aria-live="polite"></div>
+        </aside>
+        <div class="map-wrapper">
+            <div id="map" class="map-container" aria-label="Carte des destinations"></div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <h2>Contactez-nous</h2>
+        <p>Email : support@voyage.com</p>
+        <p>Téléphone : (+243) 821474532</p>
+        <p>&copy; 2025 Site de voyage. Tous droits réservés.</p>
+    </footer>
+
+    <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
+    <script>
+        const filtersToggle = document.getElementById('filtersToggle');
+        const filters = document.getElementById('filters');
+        const searchInput = document.getElementById('searchInput');
+        const priceFilter = document.getElementById('priceFilter');
+        const durationFilter = document.getElementById('durationFilter');
+        const typeFilter = document.getElementById('typeFilter');
+        const destinationList = document.getElementById('destinationList');
+        const travelIcon = L.icon(
+            {
+                iconUrl: 'LOGO/Logo.png',
+                iconSize: [40, 40],
+                iconAnchor: [20, 40],
+                popupAnchor: [0, -40]
+            },
+            {
+                iconUrl: 'LOGO/Logo.png',
+                iconSize: [40, 40],
+                iconAnchor: [20, 40],
+                popupAnchor: [0, -40]
+            },
+            {
+                iconUrl: 'LOGO/Logo.png',
+                iconSize: [40, 40],
+                iconAnchor: [20, 40],
+                popupAnchor: [0, -40]
+            },
+            {
+                iconUrl: 'LOGO/Logo.png',
+                iconSize: [40, 40],
+                iconAnchor: [20, 40],
+                popupAnchor: [0, -40]
+            },
+            {
+                iconUrl: 'LOGO/Logo.png',
+                iconSize: [40, 40],
+                iconAnchor: [20, 40],
+                popupAnchor: [0, -40]
+            },
+            {
+                iconUrl: 'LOGO/Logo.png',
+                iconSize: [40, 40],
+                iconAnchor: [20, 40],
+                popupAnchor: [0, -40]
+            },
+            {
+                iconUrl: 'LOGO/Logo.png',
+                iconSize: [40, 40],
+                iconAnchor: [20, 40],
+                popupAnchor: [0, -40]
+            },
+            {
+                iconUrl: 'LOGO/Logo.png',
+                iconSize: [40, 40],
+                iconAnchor: [20, 40],
+                popupAnchor: [0, -40]
+            },
+            {
+                iconUrl: 'LOGO/Logo.png',
+                iconSize: [40, 40],
+                iconAnchor: [20, 40],
+                popupAnchor: [0, -40]
+            }
+
+    );
+
+        // Mapping régions → pays (utilisé pour peupler dynamiquement le select pays)
+        const regionCountries = {
+            east: [
+                { value: 'rwanda', label: 'Rwanda' },
+                { value: 'burundi', label: 'Burundi' },
+                { value: 'uganda', label: 'Ouganda' },
+                { value: 'tanzania', label: 'Tanzanie' }
+            ],
+            central: [
+                { value: 'congo', label: 'Congo' },
+                { value: 'equatorial', label: 'République democratique du Congo' },
+                { value: 'gabon', label: 'Gabon' }
+            ],
+            south: [
+                { value: 'zambia', label: 'Zambie' },
+                { value: 'angola', label: 'Angola' }
+            ],
+            west: [
+                { value: 'cameroon', label: 'Cameroun' }
+            ]
+        };
+
+        // Destinations enrichies avec region et country
+        const destinations = [
+            {
+                name: 'Chutes de la Lofoi',
+                coords: [ -1.4, 29.2],
+                price: 'mid',
+                duration: 'medium',
+                type: 'adventure',
+                country: 'congo',
+                region: 'central',
+                description: 'Safari et cascades spectaculaires au cœur des paysages congolais.'
+            },
+            {
+                name: 'Parc National de Virunga',
+                coords: [0.8,29.6],
+                price: 'high',
+                duration: 'long',
+                type: 'adventure',
+                country: 'equatorial',
+                region: 'central',
+                description: 'Expérience de trekking gorille avec guides locaux experts.'
+            },
+            {
+                name: 'Lac Kivu',
+                coords: [-2.0, 29.0],
+                price: 'low',
+                duration: 'short',
+                type: 'relax',
+                country: 'rwanda',
+                region: 'east',
+                description: 'Séjour calme au bord du lac, eau claire et villages pittoresques.'
+            },
+            {
+                name: 'Circuit culturel rwandais',
+                coords: [-1.9, 29.7],
+                price: 'mid',
+                duration: 'medium',
+                type: 'culture',
+                country: 'rwanda',
+                region: 'east',
+                description: 'Rencontres locales et patrimoine authentique dans la région des volcans.'
+            }
+        ];
+
+        let map;
+        let markers = [];
+
+        // Remplit la liste des destinations groupée par catégorie (type)
+        function updateDestinationList(filtered) {
+            if (!destinationList) return;
+            if (filtered.length === 0) {
+                destinationList.innerHTML = '<p>Aucune destination ne correspond aux filtres.</p>';
+                return;
+            }
+
+            // Grouper par type
+            const groups = filtered.reduce((acc, dest) => {
+                (acc[dest.type] = acc[dest.type] || []).push(dest);
+                return acc;
+            }, {});
+
+            const order = ['adventure', 'relax', 'culture'];
+            destinationList.innerHTML = order.map(typeKey => {
+                const items = groups[typeKey] || [];
+                if (items.length === 0) return '';
+                const title = typeKey === 'adventure' ? 'Aventure' : typeKey === 'relax' ? 'Détente' : 'Culture';
+                const cards = items.map(dest => {
+                    const priceLabel = dest.price === 'low' ? '€' : dest.price === 'mid' ? '€€' : '€€€';
+                    const durationLabel = dest.duration === 'short' ? '1-3j' : dest.duration === 'medium' ? '4-7j' : '+7j';
+                    return `
+                        <article class="destination-card">
+                            <h4>${dest.name}</h4>
+                            <p>${dest.description}</p>
+                            <small>Pays : ${(dest.country || '').replace(/\b\w/g, c => c.toUpperCase())} · Prix : ${priceLabel} · Durée : ${durationLabel}</small>
+                        </article>`;
+                }).join('');
+                return `<section class="dest-group"><h4 class="group-title">${title}</h4>${cards}</section>`;
+            }).join('');
+        }
+
+        // Met à jour les options du select pays selon la région choisie
+        function populateCountryOptions(region) {
+            const countrySelect = document.getElementById('countryFilter');
+            if (!countrySelect) return;
+            // conserver l'option 'any' en début
+            countrySelect.innerHTML = '<option value="any">Tous</option>';
+            if (!region || region === 'any') {
+                // remplir avec toutes les countries disponibles dans regionCountries
+                const all = Object.values(regionCountries).flat();
+                // éviter les doublons
+                const uniq = Array.from(new Map(all.map(c => [c.value, c])).values());
+                uniq.forEach(c => countrySelect.insertAdjacentHTML('beforeend', `<option value="${c.value}">${c.label}</option>`));
+                return;
+            }
+            const list = regionCountries[region] || [];
+            list.forEach(c => countrySelect.insertAdjacentHTML('beforeend', `<option value="${c.value}">${c.label}</option>`));
+        }
+
+        function applyFilters() {
+            const term = searchInput ? searchInput.value.trim().toLowerCase() : '';
+            const price = priceFilter ? priceFilter.value : 'any';
+            const duration = durationFilter ? durationFilter.value : 'any';
+            const type = typeFilter ? typeFilter.value : 'any';
+            const region = document.getElementById('regionFilter') ? document.getElementById('regionFilter').value : 'any';
+            const country = document.getElementById('countryFilter') ? document.getElementById('countryFilter').value : 'any';
+
+            const filtered = destinations.filter(dest => {
+                const matchesRegion = region === 'any' || dest.region === region;
+                const matchesCountry = country === 'any' || dest.country === country;
+                const matchesSearch = term === '' || dest.name.toLowerCase().includes(term) || dest.description.toLowerCase().includes(term);
+                const matchesPrice = price === 'any' || dest.price === price;
+                const matchesDuration = duration === 'any' || dest.duration === duration;
+                const matchesType = type === 'any' || dest.type === type;
+                return matchesRegion && matchesCountry && matchesSearch && matchesPrice && matchesDuration && matchesType;
+            });
+
+            // Mettre à jour visibilité des marqueurs
+            markers.forEach(entry => {
+                const show = filtered.includes(entry.data);
+                const el = entry.marker.getElement();
+                if (el) el.style.display = show ? 'block' : 'none';
+            });
+
+            if (filtered.length > 0 && map) {
+                const bounds = L.latLngBounds(filtered.map(dest => dest.coords));
+                if (filtered.length === 1) {
+                    map.flyTo(filtered[0].coords, 6);
+                } else {
+                    map.fitBounds(bounds, { padding: [80, 80], maxZoom: 6 });
+                }
+            }
+
+            updateDestinationList(filtered);
+        }
+
+        function initializeMap() {
+            if (typeof L === 'undefined') return;
+            map = L.map('map').setView([-2.0, 27.5], 4);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            destinations.forEach(dest => {
+                const marker = L.marker(dest.coords, { icon: travelIcon })
+                    .bindPopup(`<strong>${dest.name}</strong><p>${dest.description}</p>`)
+                    .addTo(map);
+                markers.push({ marker, data: dest });
+            });
+
+            applyFilters();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (filtersToggle && filters) {
+                filtersToggle.addEventListener('click', () => {
+                    const hidden = filters.getAttribute('aria-hidden') === 'true';
+                    filters.setAttribute('aria-hidden', String(!hidden));
+                });
+            }
+
+            initializeMap();
+            [searchInput, priceFilter, durationFilter, typeFilter].forEach(control => {
+                if (control) control.addEventListener('input', applyFilters);
+            });
+
+            // Population dynamique du select pays selon la région
+            const regionSelect = document.getElementById('regionFilter');
+            const countrySelect = document.getElementById('countryFilter');
+            if (regionSelect) {
+                regionSelect.addEventListener('change', (e) => {
+                    populateCountryOptions(e.target.value);
+                    applyFilters();
+                });
+            }
+            if (countrySelect) {
+                countrySelect.addEventListener('change', applyFilters);
+            }
+            // initialiser les options pays
+            populateCountryOptions(regionSelect ? regionSelect.value : 'any');
+            // Bouton Réinitialiser
+            const resetBtn = document.getElementById('resetFilters');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                    if (regionSelect) regionSelect.value = 'any';
+                    populateCountryOptions('any');
+                    if (countrySelect) countrySelect.value = 'any';
+                    if (priceFilter) priceFilter.value = 'any';
+                    if (durationFilter) durationFilter.value = 'any';
+                    if (typeFilter) typeFilter.value = 'any';
+                    if (searchInput) searchInput.value = '';
+                    applyFilters();
+                    if (map && typeof map.setView === 'function') {
+                        map.setView([-2.0, 27.5], 4);
+                    }
+                });
+            }
+
+            const navToggle = document.querySelector('.nav-toggle');
+            const mainNav = document.getElementById('main-nav');
+            if (navToggle && mainNav) {
+                navToggle.addEventListener('click', () => {
+                    const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+                    navToggle.setAttribute('aria-expanded', String(!expanded));
+                    mainNav.classList.toggle('open');
+                });
+            }
+
+            const userBadge = document.getElementById('userBadge');
+            const logoutLink = document.getElementById('logoutLink');
+            const accountItem = document.querySelector('.account-item');
+            const signedUp = localStorage.getItem('signedUp') === '1';
+            const loggedIn = localStorage.getItem('isLoggedIn') === '1';
+            const userName = localStorage.getItem('userName');
+
+            if (signedUp && loggedIn && userBadge && logoutLink) {
+                userBadge.textContent = userName ? `Bonjour, ${userName}` : 'Bonjour';
+                userBadge.style.display = 'inline-flex';
+                logoutLink.textContent = 'Se déconnecter';
+                logoutLink.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    localStorage.removeItem('isLoggedIn');
+                    location.href = 'index.html';
+                });
+                if (accountItem) {
+                    accountItem.style.display = 'list-item';
+                }
+            } else {
+                if (userBadge) {
+                    userBadge.style.display = 'none';
+                }
+                if (logoutLink) {
+                    logoutLink.textContent = 'Se connecter';
+                    logoutLink.href = 'index.html';
+                }
+                if (accountItem) {
+                    accountItem.style.display = 'none';
+                }
+            }
+
+            const blocks = document.querySelectorAll('.generale .img');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            blocks.forEach(block => {
+                block.classList.add('hidden');
+                observer.observe(block);
+            });
+        });
+    </script>
+</body>
+</html>

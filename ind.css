@@ -1,0 +1,654 @@
+/*----------------------------------------BODY---------------------------------------------------------*/
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+    position: relative;
+    background: #f5f5f5;
+    color: #222;
+    line-height: 1.5;
+}
+
+/*--------------------------------------NAV-BAR-----------------------------------------------------*/
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    background: #fff;
+    box-shadow: 0 1px 10px rgba(0,0,0,0.06);
+}
+
+nav {
+    width: 100%;
+    max-width: 1220px;
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 20px;
+    padding: 10px 20px;
+    margin: 0 auto;
+    background: #fff;
+    z-index: 100;
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 0 0 auto;
+    margin: 0;
+    min-width: 0;
+}
+
+.logo img {
+    display: block;
+    max-height: 60px;
+    width: 80px;
+    margin: 0;
+}
+
+nav ul{
+    list-style-type: none;
+    margin: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 16px;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.nav-actions{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-end;
+    flex: 0 0 auto;
+    min-width: 180px;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+nav ul li{
+    margin: 0;
+}
+
+.account-item a,
+.auth-item a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: rgba(233,117,34,0.08);
+    color: #222;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.account-item a:hover,
+.auth-item a:hover {
+    background: rgb(233,117,34);
+    color: #fff;
+}
+
+.user-badge {
+    display: none;
+    padding: 10px 12px;
+    color: #444;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+#searchInput{
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    min-width: 180px;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+#searchInput:focus {
+    border-color: #e97601;
+}
+
+nav a{
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 10px;
+}
+
+nav ul li a:hover{
+    color: rgb(233, 117, 34);
+    border-radius: 5px;
+    border: 2px solid black; 
+}
+
+nav ul li a.active{
+    color: rgb(233, 117, 34);
+    border-radius: 5px;
+    border: 2px solid black; 
+}
+
+.liens{
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 12px 18px;
+    border-radius: 15px;
+    color: rgb(0, 0, 0);
+    border: 1px solid rgba(0,0,0,0.2);
+    box-shadow: 0 2px 0 rgb(0, 0, 0);
+    background-color: blanchedalmond;
+    cursor: pointer;
+}
+
+.liens:hover{
+    cursor: pointer;
+}
+
+.liens:active{
+    box-shadow: none;
+}
+
+.nav-toggle{
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+}
+
+.nav-toggle .bar{
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: #222;
+    margin: 6px 0;
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.liens:hover{
+    cursor: pointer;
+
+}
+
+.liens:active{
+    box-shadow: none;
+}
+
+@media screen and (max-width:950px ) {
+    nav{
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        height: auto;
+        position: relative;
+        top: 0;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        padding: 10px 16px;
+        gap: 10px;
+    }
+    .logo{
+        flex: 0 0 auto;
+        min-width: 0;
+        order: 1;
+    }
+    .logo img{
+        max-height: 50px;
+    }
+    .nav-toggle{
+        display: block;
+        order: 2;
+        margin-left: auto;
+    }
+    nav ul{
+        width: 100%;
+        background: #fff;
+        flex-direction: column;
+        gap: 0;
+        margin: 0;
+        padding: 8px 0;
+        display: none;
+        border-top: 1px solid rgba(0,0,0,0.08);
+    }
+    nav ul.open{
+        display: flex;
+    }
+    nav ul li{
+        width: 100%;
+        margin: 0;
+        border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+    nav ul li:last-child{
+        border-bottom: none;
+    }
+    nav ul li a{
+        display: block;
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+    .nav-actions{
+        width: 100%;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+        order: 4;
+    }
+    #searchInput{
+        min-width: auto;
+        width: 100%;
+        max-width: 100%;
+        font-size: 14px;
+    }
+    .liens{
+        width: 100%;
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width:600px){
+    .logo img{
+        max-height: 45px;
+    }
+    nav a{
+        font-size: 14px;
+    }
+    .liens{
+        font-size: 13px;
+        padding: 10px 14px;
+    }
+}
+
+
+
+/*--------------------------------------PARTIE PRINCIPALE-----------------------------------------------------*/
+
+.pt-principal {
+    min-height: 90vh;
+    background: url(IMG-1.PNG) bottom no-repeat;
+    background-size: cover;
+    border-radius: 10px;
+    text-align: center;
+    color: black;
+    padding: 32px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.pt-principal h2 {
+    font-size: 2.5em;
+    margin-top: 0;
+    color: #fff;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+    animation: fadeInDown 1s ease-in-out;
+    
+}
+
+.pt-principal h3 {
+    font-size: 1.1em;
+    margin-top: 12px;
+    font-style: italic;
+    color: #f0f0f0;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+    animation: fadeInUp 1s ease-in-out;
+}
+
+.pt-principal .btn-discover {
+    padding: 15px 30px;
+    font-size: 1.25em;
+    background: orangered;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    margin-top: 30px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+.pt-principal .btn-discover:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+.pt-principal .btn-discover:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.pt-principal .btn-discover {
+    padding: 15px 40px;
+    font-size: 1.25em;
+    font-weight: bold;
+    background: linear-gradient(45deg, orangered, #ff6347);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    margin-top: 30px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+.pt-principal .btn-discover:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(45deg, #ff6347, orangered);
+}
+
+.pt-principal .btn-discover:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(45deg, #ff4500, #ff6347);
+}
+
+
+section button{
+    padding: 12px 18px;
+    font-size: 1.05em;
+    background: rgb(233, 117, 34);
+    color: black;
+    border-radius: 6px;
+    box-shadow: 0 2px 0 rgb(0, 0, 0);
+    margin-top: 24px;
+    cursor: pointer;
+}
+
+section  button:hover{
+    cursor: pointer;
+}
+
+section button:active{
+    box-shadow: none;
+}
+
+
+/* Animations */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+
+/*--------------------------------------PARTIE PRINCIPALE 2-----------------------------------------------------*/
+
+.pt-principal2 {
+    width: 100%;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+    border-radius: 0;
+}
+
+.pt-principal2 h1 {
+    text-align: center;
+    font-size: 2.2em;
+    margin: 0 0 40px;
+    color: #222;
+}
+
+.generale {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.generale img{
+    height: 280px;
+    object-fit: cover;
+}
+
+.generale .img {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform-origin: center;
+}
+
+.generale .img:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.generale .img img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    display: block;
+}
+
+.generale .img h1 {
+    font-size: 1.4em;
+    margin: 20px 20px 10px;
+    color: #222;
+    font-weight: 700;
+}
+
+.generale .img p {
+    font-size: 0.95em;
+    color: #666;
+    line-height: 1.6;
+    margin: 0 20px 20px;
+    flex-grow: 1;
+}
+
+.img a{
+    padding: 12px 24px;
+    margin: 0 20px 20px;
+    font-size: 1em;
+    background: linear-gradient(135deg, #e97601 0%, #d65f00 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(233, 117, 34, 0.3);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    text-align: center;
+}
+
+.img a:hover{
+    background: linear-gradient(135deg, #d65f00 0%, #b84e00 100%);
+    box-shadow: 0 4px 12px rgba(233, 117, 34, 0.4);
+    transform: translateY(-2px);
+}
+
+.img a:active{
+    transform: translateY(0);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .pt-principal2 {
+        padding: 30px 16px;
+    }
+    
+    .pt-principal2 h1 {
+        font-size: 1.8em;
+        margin-bottom: 30px;
+    }
+    
+    .generale {
+        gap: 20px;
+        padding: 0 16px;
+    }
+    
+    .generale .img {
+        border-radius: 12px;
+    }
+    
+    .generale .img h1 {
+        font-size: 1.2em;
+        margin: 16px 16px 8px;
+    }
+    
+    .generale .img p {
+        margin: 0 16px 16px;
+        font-size: 0.9em;
+    }
+    
+    .img a{
+        margin: 0 16px 16px;
+        padding: 10px 20px;
+        font-size: 0.95em;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .generale {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+/* Animation pour les blocs */
+.generale .img.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.generale .img.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* Map & Filters */
+.map-section{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.filters{
+    background: #fff;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 320px;
+}
+
+.filters[aria-hidden="true"] {
+    display: none;
+}
+
+.destination-list{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.destination-card{
+    background: #fafafa;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 10px;
+    padding: 14px;
+}
+
+.destination-card h4 {
+    margin: 0 0 8px;
+    font-size: 1.05em;
+}
+
+.destination-card p {
+    margin: 0 0 8px;
+    color: #555;
+}
+
+.destination-card small {
+    color: #777;
+}
+
+.map-wrapper{
+    width: 100%;
+}
+
+.map-container{
+    width: 100%;
+    min-height: 320px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+@media screen and (min-width: 992px){
+    .map-section{
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    .filters{ display: flex; flex: 0 0 280px; }
+    .map-container{ flex: 1 1 auto; min-height: 420px; }
+}
+
+/* Footer */
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}

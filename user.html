@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon compte — SAFARI-RDC+</title>
+    <link rel="stylesheet" href="user.css">
+</head>
+<body>
+    <header class="user-header">
+        <div class="brand-row">
+            <a href="ind.html" class="brand-link">
+                <img src="LOGO/Logo.png" alt="Logo SAFARI-RDC+" class="brand-logo">
+            </a>
+            <a href="ind.html" class="button secondary">Accueil</a>
+            <a href="destination.html" class="button secondary">Destinations</a>
+        </div>
+    </header>
+
+    <main class="account-page">
+        <section class="account-card">
+            <h1>Mon espace utilisateur</h1>
+            <p class="account-intro">Retrouvez ici vos informations et votre historique de voyages.</p>
+
+            <div class="account-info">
+                <div class="info-block">
+                    <h2>Informations</h2>
+                    <p><strong>Nom :</strong> <span id="displayName">-</span></p>
+                    <p><strong>Email :</strong> <span id="displayEmail">-</span></p>
+                    <p><strong>Statut :</strong> <span id="displayStatus">-</span></p>
+                    <p><strong>Inscrit depuis :</strong> <span id="displaySince">-</span></p>
+                    <div class="account-actions">
+                        <button id="logoutButton" class="button danger">Se déconnecter</button>
+                    </div>
+                </div>
+                <div class="history-block">
+                    <h2>Historique de voyage</h2>
+                    <div id="historyList" class="history-list">Chargement...</div>
+                    <div class="history-actions">
+                        <button id="clearHistory" class="button.supp">Effacer l'historique</button>
+                        <button id="exportHistory" class="button.supp">Exporter l'historique</button>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+    </main>
+        <footer id="contact">
+        <h2>Contactez-nous</h2>
+        <p>Email : support@voyage.com</p>
+        <p>Téléphone : (+243) 821474532</p>
+        <p>&copy; 2025 Site de voyage. Tous droits réservés.</p>
+    </footer>
+
+
+    <script>
+        function formatDate(isoString) {
+            const date = new Date(isoString);
+            return date.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
+        }
+
+        function computeMembershipStatus(since) {
+            if (!since) return 'Nouveau membre';
+            const created = new Date(since);
+            const now = new Date();
+            const diffDays = Math.floor((now - created) / (1000 * 60 * 60 * 24));
+            if (diffDays < 7) return 'Membre récent';
+            if (diffDays < 30) return 'Membre actif';
+            return 'Membre fidèle';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const signedUp = localStorage.getItem('signedUp') === '1';
+            const loggedIn = localStorage.getItem('isLoggedIn') === '1';
+            if (!signedUp || !loggedIn) {
+                location.replace('index.html');
+                return;
+            }
+
+            const displayName = document.getElementById('displayName');
+            const displayEmail = document.getElementById('displayEmail');
+            const displayStatus = document.getElementById('displayStatus');
+            const displaySince = document.getElementById('displaySince');
+            const historyList = document.getElementById('historyList');
+            const logoutButton = document.getElementById('logoutButton');
+
+            const userName = localStorage.getItem('userName') || 'Utilisateur';
+            const userEmail = localStorage.getItem('userEmail') || 'Non renseigné';
+            const signedUpAt = localStorage.getItem('signedUpAt');
+            const travelHistory = JSON.parse(localStorage.getItem('travelHistory') || '[]');
+
+            displayName.textContent = userName;
+            displayEmail.textContent = userEmail;
+            displayStatus.textContent = computeMembershipStatus(signedUpAt);
+            displaySince.textContent = signedUpAt ? formatDate(signedUpAt) : '—';
+
+            if (travelHistory.length === 0) {
+                historyList.innerHTML = '<p class="empty-message">Aucun voyage enregistré pour l’instant. Explorez nos destinations pour créer votre premier itinéraire.</p>';
+            } else {
+                historyList.innerHTML = travelHistory.map((item, index) => {
+                    return `
+                        <article class="history-item">
+                            <div>
+                                <strong>${item.name || 'Voyage #' + (index + 1)}</strong>
+                                <p>${item.description || 'Aucune description disponible.'}</p>
+                            </div>
+                            <span>${item.date || ''}</span>
+                        </article>
+                    `;
+                }).join('');
+            }
+
+            logoutButton.addEventListener('click', () => {
+                localStorage.removeItem('isLoggedIn');
+                location.href = 'index.html';
+            });
+        });
+
+
+        // Fonction pour supprimer les résultats
+        function clearResults() {
+            const resultsContainer = document.getElementById('resultsContainer');
+            if (resultsContainer) {
+                resultsContainer.innerHTML = '';
+            }
+        } 
+        
+</script>
+    </script>
+</body>
+</html>

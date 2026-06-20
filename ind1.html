@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Description" content="Découvrez des voyages authentiques et des offres spéciales pour explorer l'Afrique centrale et au-delà.">
+    <title>SAFARI-RDC+/TRAVELIA | Accueil</title>
+    <link rel="stylesheet" href="ind.css">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <nav>
+            <span class="logo"><img src="LOGO/Logo.png" alt="Logo SAFARI-RDC+"></span>
+            <ul class="list">
+                <li><a href="ind.html" >Accueil</a></li>
+                <li><a href="destination.html">Destinations</a></li>
+                <li><a href="a pros pos.html">À propos</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <form id="searchForm">
+                    <input type="search" id="searchInput" placeholder="Rechercher une destination, activité...">
+                </form>
+                <button id="filtersToggle" class="liens" type="button">Filtres</button>
+            </div>
+        </nav>
+    </header>
+
+    <section class="pt-principal">
+        <h2>Bienvenue à TRAVELIA</h2>
+        <h3>Découvrez des endroits magnifiques à la limite de nos frontières.</h3>
+        <button class="btn-discover">Découvrir nos Sites</button>
+    </section>
+
+    <section class="pt-principal2">
+        <div class="generale">
+            <article class="img">
+                <h1>Voyage en Solo</h1>
+                <img src="IMG/3.jpg" alt="Voyageur explorant seul un paysage naturel">
+                <p>
+                    Partez à la découverte des perles en dehors de la RDC : volcans majestueux, forêts tropicales et lacs paisibles. Ce voyage vous offre liberté, sécurité et immersion totale dans les cultures locales.
+                </p>
+                <a href="destination.html" class="btn">Voir nos offres</a>
+            </article>
+            <article class="img">
+                <h1>Voyage en Couple</h1>
+                <img src="IMG/1.jpg" alt="Couple profitant d'une escapade romantique">
+                <p>
+                    Vivez une escapade unique en dehors de la RDC : savanes sauvages, beauté tropicale, rugissement des chutes, plages et lacs paisibles pour passer du temps en couple. Ainsi passe des moments inoubliables.
+                </p>
+                <a href="destination.html" class="btn">Voir nos offres</a>
+            </article>
+            <article class="img">
+                <h1>Voyage en Famille</h1>
+                <img src="IMG/2.webp" alt="Famille profitant d'un voyage ensemble">
+                <p>
+                    Découvrez une expérience sûre et enrichissante en famille, adaptée à tous les âges, en dehors de la RDC. Pour des souvenirs à se remémorer en famille, riches et pleins d'émotions.
+                </p>
+                <a href="destination.html" class="btn">Voir nos offres</a>
+            </article>
+        </div>
+    </section>
+
+    <section class="map-section">
+        <aside class="filters" id="filters" aria-hidden="true">
+            <h3>Filtres</h3>
+            <label>Type de recherche
+                <select id="priceFilter">
+                    <option value="any">Tous</option>
+                    <option value="low">Coût Faible</option>
+                    <option value="mid">Coût Moyen</option>
+                    <option value="high">Coût Élevé</option>
+                </select>
+            </label>
+            <label>Durée de sejour
+                <select id="durationFilter">
+                    <option value="any">Toutes</option>
+                    <option value="short">1-3 jours</option>
+                    <option value="medium">4-7 jours</option>
+                    <option value="long">+7 jours</option>
+                </select>
+            </label>
+            <label>Categorie de voyage
+                <select id="typeFilter">
+                    <option value="any">Tous</option>
+                    <option value="adventure">Aventure</option>
+                    <option value="relax">Détente</option>
+                    <option value="culture">Culture</option>
+                </select>
+            </label>
+            <div class="destination-list" id="destinationList" aria-live="polite"></div>
+        </aside>
+        <div class="map-wrapper">
+            <div id="map" class="map-container" aria-label="Carte des destinations"></div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <h2>Contactez-nous</h2>
+        <p>Email : support@voyage.com</p>
+        <p>Téléphone : (+243) 821474532</p>
+        <p>&copy; 2025 Site de voyage. Tous droits réservés.</p>
+    </footer>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <script>
+        const filtersToggle = document.getElementById('filtersToggle');
+        const filters = document.getElementById('filters');
+        const searchInput = document.getElementById('searchInput');
+        const priceFilter = document.getElementById('priceFilter');
+        const durationFilter = document.getElementById('durationFilter');
+        const typeFilter = document.getElementById('typeFilter');
+        const destinationList = document.getElementById('destinationList');
+
+        const destinations = [
+            {
+                name: 'Chutes de la Lofoi',
+                coords: [29.2, -1.4],
+                price: 'mid',
+                duration: 'medium',
+                type: 'adventure',
+                description: 'Safari et cascades spectaculaires au cœur des paysages congolais.'
+            },
+            {
+                name: 'Parc National de Virunga',
+                coords: [29.6, 0.8],
+                price: 'high',
+                duration: 'long',
+                type: 'adventure',
+                description: 'Expérience de trekking gorille avec guides locaux experts.'
+            },
+            {
+                name: 'Lac Kivu',
+                coords: [28.8, -2.0],
+                price: 'low',
+                duration: 'short',
+                type: 'relax',
+                description: 'Séjour calme au bord du lac, eau claire et villages pittoresques.'
+            },
+            {
+                name: 'Circuit culturel rwandais',
+                coords: [29.5, -1.9],
+                price: 'mid',
+                duration: 'medium',
+                type: 'culture',
+                description: 'Rencontres locales et patrimoine authentique dans la région des volcans.'
+            }
+        ];
+
+        let map;
+        let markers = [];
+
+        function updateDestinationList(filtered) {
+            if (!destinationList) return;
+            if (filtered.length === 0) {
+                destinationList.innerHTML = '<p>Aucune destination ne correspond aux filtres.</p>';
+                return;
+            }
+            destinationList.innerHTML = filtered.map(dest => {
+                const priceLabel = dest.price === 'low' ? '€' : dest.price === 'mid' ? '€€' : '€€€';
+                const durationLabel = dest.duration === 'short' ? '1-3j' : dest.duration === 'medium' ? '4-7j' : '+7j';
+                return `
+                    <article class="destination-card">
+                        <h4>${dest.name}</h4>
+                        <p>${dest.description}</p>
+                        <small>Prix : ${priceLabel} · Durée : ${durationLabel} · Type : ${dest.type}</small>
+                    </article>
+                `;
+            }).join('');
+        }
+
+        function applyFilters() {
+            const term = searchInput ? searchInput.value.trim().toLowerCase() : '';
+            const price = priceFilter ? priceFilter.value : 'any';
+            const duration = durationFilter ? durationFilter.value : 'any';
+            const type = typeFilter ? typeFilter.value : 'any';
+
+            const filtered = destinations.filter(dest => {
+                const matchesSearch = term === '' || dest.name.toLowerCase().includes(term) || dest.description.toLowerCase().includes(term);
+                const matchesPrice = price === 'any' || dest.price === price;
+                const matchesDuration = duration === 'any' || dest.duration === duration;
+                const matchesType = type === 'any' || dest.type === type;
+                return matchesSearch && matchesPrice && matchesDuration && matchesType;
+            });
+
+            markers.forEach(entry => {
+                entry.marker.getElement().style.display = filtered.includes(entry.data) ? 'block' : 'none';
+            });
+
+            if (filtered.length > 0 && map) {
+                const bounds = new mapboxgl.LngLatBounds();
+                filtered.forEach(dest => bounds.extend(dest.coords));
+                if (filtered.length === 1) {
+                    map.flyTo({ center: filtered[0].coords, zoom: 6 });
+                } else {
+                    map.fitBounds(bounds, { padding: 80, maxZoom: 6 });
+                }
+            }
+
+            updateDestinationList(filtered);
+        }
+
+        function initializeMap() {
+            if (typeof mapboxgl === 'undefined') return;
+            mapboxgl.accessToken = 'YOUR_MAPBOX_TOKEN';
+            map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/streets-v12',
+                center: [27.5, -2.0],
+                zoom: 4
+            });
+
+            destinations.forEach(dest => {
+                const marker = new mapboxgl.Marker({ color: '#e97601' })
+                    .setLngLat(dest.coords)
+                    .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(`<strong>${dest.name}</strong><p>${dest.description}</p>`))
+                    .addTo(map);
+                markers.push({ marker, data: dest });
+            });
+
+            applyFilters();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (filtersToggle && filters) {
+                filtersToggle.addEventListener('click', () => {
+                    const hidden = filters.getAttribute('aria-hidden') === 'true';
+                    filters.setAttribute('aria-hidden', String(!hidden));
+                });
+            }
+
+            initializeMap();
+            [searchInput, priceFilter, durationFilter, typeFilter].forEach(control => {
+                if (control) control.addEventListener('input', applyFilters);
+            });
+
+            const blocks = document.querySelectorAll('.generale .img');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            blocks.forEach(block => {
+                block.classList.add('hidden');
+                observer.observe(block);
+            });
+        });
+    </script>
+</body>
+</html>

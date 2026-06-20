@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Description" content="Contactez-nous pour toute question ou demande d'information.">
+    <title>SAFARI-RDC+ | Contact</title>
+    <link rel="stylesheet" href="contact.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <span class="logo">SAFARI-RDC+</span>
+            <ul class="list">
+                <li><a href="ind.html">Accueil</a></li>
+                <li><a href="destination.html">Destination</a></li>
+                <li><a href="a pros pos.html">À propos</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="contact-section">
+            <h1>Contactez-nous</h1>
+            <form id="contactForm" class="contact-form"  autocomplete="off">
+                <input type="text" id="nom" placeholder="Votre nom" required>
+                <input type="email" id="email" placeholder="Votre email" required>
+                <textarea id="message" placeholder="Votre message" rows="5" required></textarea>
+                <input type="submit" value="Envoyer">
+            </form>
+            <div id="formMessage"></div>
+        </section>
+    </main>
+
+    <script>
+    // Validation et gestion du formulaire de contact
+   document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const nom = document.getElementById('nom').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+    const formMessage = document.getElementById('formMessage');
+    let error = "";
+
+    // Validation simple
+    if (nom.length < 2) {
+        error = "Veuillez entrer un nom valide.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        error = "Veuillez entrer un email valide.";
+    } else if (message.length < 5) {
+        error = "Le message est trop court.";
+    }
+
+    if (error) {
+        formMessage.textContent = error;
+        formMessage.style.color = "red";
+    } else {
+        formMessage.textContent = "Merci pour votre message, " + nom + " ! Nous vous répondrons rapidement.";
+        formMessage.style.color = "green";
+        this.reset();
+        // Faire disparaître le message après 3 secondes
+        setTimeout(() => {
+            formMessage.textContent = "";
+        }, 3000);
+    }
+});
+
+
+    </script>
+    
+
+     <footer id="contact">
+        <h2>Contactez-nous</h2>
+        <p>Email : support@voyage.com</p>
+        <p>Téléphone : (+243) 821474532</p>
+        <p>&copy; 2025 Site de voyage. Tous droits réservés.</p>
+    </footer>
+
+        
+</body>
+</html>

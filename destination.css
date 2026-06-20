@@ -1,0 +1,293 @@
+/*----------------------------------------BODY---------------------------------------------------------*/
+
+body{
+    font-family: Roboto, arial , Arial, Helvetica, sans-serif;
+    position: relative;
+}
+
+/*--------------------------------------NAV-BAR-----------------------------------------------------*/
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    background: #fff;
+}
+
+nav {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    z-index: 100;
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+.logo{
+    font-size: 30px;
+    padding-left: 20px;
+    font-weight: bolder;
+}
+
+nav ul{
+    list-style-type: none;
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav li{
+    margin: 0 20px;
+}
+
+nav a{
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px 10px 10px 10px;
+}
+
+
+
+.liens{
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-right: 20px;
+    padding: 15px;
+    border-radius: 15px;
+    color: rgb(0, 0, 0);
+    border: 1px solid (0,0,0,.2) black;
+    box-shadow: 0 2px 0 rgb(0, 0, 0);
+    background-color: blanchedalmond ;
+    cursor: pointer;
+}
+
+nav ul li a:hover{
+    color: rgb(233, 117, 34);
+    border-radius: 5px;
+    border: 2px solid black; 
+
+}
+
+
+nav ul li a.active{
+    color: rgb(233, 117, 34);
+    border-radius: 5px;
+    border: 2px solid black; 
+}
+
+.liens:hover{
+    cursor: pointer;
+
+}
+
+.liens:active{
+    box-shadow: none;
+}
+
+@media screen and (max-width:950px ) {
+    nav{
+        justify-content: center;
+        flex-direction: column;
+        height: auto;
+        position: absolute;
+        top: -5px;
+        border-bottom: 1px solid black;
+    }
+    .logo{
+        padding-left: 0;
+        width: 100%;
+        background: white;
+        text-align: center;
+        height: 70px;
+    }
+    nav ul{
+        width: 100%;
+        background: white;
+        flex-direction: column;
+    }
+    nav ul li{
+        height: 70px;
+        line-height: 70px;
+    }
+    .liens{
+        display: block;
+        justify-content: end;
+    }
+    
+}
+
+/* Liste des réservations */
+.reservation-list {
+    position: absolute;
+    right: 30px;
+    top: 70px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+    min-width: 260px;
+    max-width: 350px;
+    z-index: 999;
+    padding: 1rem;
+    display: none;
+}
+.reservation-list h4 {
+    margin-top: 0;
+    color: #e97522;
+    font-size: 1.1rem;
+}
+.reservation-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.reservation-list li {
+    margin-bottom: 0.7em;
+    font-size: 1rem;
+    color: #222;
+}
+.reservation-list .no-res {
+    color: #888;
+    font-style: italic;
+}
+
+
+
+
+/* Section Destinations */
+.destinations {
+    padding: 40px 5vw;
+    background: #fff8f0;
+    text-align: center;
+}
+
+.destinations h1 {
+    color: #b85c00;
+    margin-bottom: 2rem;
+    font-size: 2.2rem;
+}
+
+.destinations-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.destination-card {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    padding: 1.5rem;
+    width: 300px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.destination-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.destination-card h2 {
+    color: #e97522;
+    margin-bottom: 0.7rem;
+    font-size: 1.3rem;
+}
+
+.destination-card p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.btn {
+    background: #e97522;
+    color: #fff;
+    padding: 0.6rem 1.2rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.btn:hover {
+    background: #b85c00;
+}
+
+@media (max-width: 900px) {
+    .destinations-list {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+
+/* Modal fiche détail destination */
+.modal-detail {
+    position: fixed;
+    left: 0; top: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+.modal-content {
+    background: #fff;
+    border-radius: 15px;
+    padding: 2rem 1.5rem;
+    max-width: 400px;
+    width: 95vw;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    animation: fadeIn .3s;
+    margin-left: 35%;
+    margin-top: 10%;
+}
+.modal-content h2 { color: #e97522; }
+.modal-content h3 { margin-top: 1.2em; }
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7em;
+    margin-top: 1em;
+}
+.modal-content input, .modal-content select {
+    padding: 0.6em;
+    border-radius: 8px;
+    border: 1px solid #e97522;
+}
+.modal-content button {
+    background: #e97522;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 0.7em 0;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 0.5em;
+    transition: background 0.2s;
+}
+.modal-content button:hover {
+    background: #b85c00;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+/* Footer */
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
